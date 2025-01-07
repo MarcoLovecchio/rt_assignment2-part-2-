@@ -28,6 +28,12 @@ def generate_launch_description():
         executable='joint_state_publisher',
         name='joint_state_publisher'
     )
+    
+    motion_node = Node(
+        package='assignment2_part2',
+        executable='motion',
+        name='Motion'
+    )
    
 
     # GAZEBO_MODEL_PATH has to be correctly set for Gazebo to be able to find the model
@@ -47,4 +53,5 @@ def generate_launch_description():
         ExecuteProcess(
             cmd=['rviz2', '-d', rviz_config_path],
             output='screen'),
+        motion_node,
     ])
