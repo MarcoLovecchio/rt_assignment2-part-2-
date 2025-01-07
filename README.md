@@ -1,6 +1,7 @@
 # ResearchTrack1 Assignment2_part-2
 The motion node has been developed following the first ros exercise: the robot move along x until x is higher than 6 or less than 0, then turn in a circular arc by imposing a velocity along z.
 The current position of the robot is always updated with the values published on the topic /odom.
+In order to use the desired velocity we need to publish on the topic /cmd_vel.
 The launch file 'gazebo.launch.py' has been modified, in order to launch the new node.
 
 In order to run the code you need to do the following steps:
