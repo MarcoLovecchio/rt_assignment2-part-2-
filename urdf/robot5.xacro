@@ -93,19 +93,6 @@
       <material name="red"/>
     </visual>
   </link>
-  
-  <link name="link_right_wheel_back">
-    <xacro:default_inertial mass="0.2"/>
-    <collision name="link_right_wheel_collision_back">
-      <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
-      <xacro:wheel_geometry />
-    </collision>
-    <visual name="link_right_wheel_visual_back">
-      <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
-      <xacro:wheel_geometry />
-      <material name="red"/>
-    </visual>
-  </link>
 
    <link name="link_left_wheel">
     <xacro:default_inertial mass="0.2"/>
@@ -119,33 +106,11 @@
       <material name="red"/>
     </visual>
   </link>
-  
-     <link name="link_left_wheel_back">
-    <xacro:default_inertial mass="0.2"/>
-    <collision name="link_left_wheel_collision_back">
-      <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
-      <xacro:wheel_geometry />
-    </collision>
-    <visual name="link_left_wheel_visual_back">
-      <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
-      <xacro:wheel_geometry />
-      <material name="red"/>
-    </visual>
-  </link>
 
 
   <joint name="joint_right_wheel" type="continuous">
-    <origin rpy="0 0 0" xyz="0.2 0.15 0"/>
+    <origin rpy="0 0 0" xyz="-0.05 0.15 0"/>
     <child link="link_right_wheel"/>
-    <parent link="link_chassis"/>
-    <axis rpy="0 0 0" xyz="0 1 0"/>
-    <limit effort="10000" velocity="1000"/>
-    <joint_properties damping="1.0" friction="1.0"/>
-  </joint>
-  
-    <joint name="joint_right_wheel_back" type="continuous">
-    <origin rpy="0 0 0" xyz="-0.2 0.15 0"/>
-    <child link="link_right_wheel_back"/>
     <parent link="link_chassis"/>
     <axis rpy="0 0 0" xyz="0 1 0"/>
     <limit effort="10000" velocity="1000"/>
@@ -154,7 +119,7 @@
   
   
   <joint name="joint_left_wheel" type="continuous">
-    <origin rpy="0 0 0" xyz="0.2 -0.15 0"/>
+    <origin rpy="0 0 0" xyz="-0.05 -0.15 0"/>
     <child link="link_left_wheel"/>
     <parent link="link_chassis"/>
     <axis rpy="0 0 0" xyz="0 1 0"/>
@@ -162,31 +127,13 @@
     <joint_properties damping="1.0" friction="1.0"/>
   </joint>
   
-  <joint name="joint_left_wheel_back" type="continuous">
-    <origin rpy="0 0 0" xyz="-0.2 -0.15 0"/>
-    <child link="link_left_wheel_back"/>
-    <parent link="link_chassis"/>
-    <axis rpy="0 0 0" xyz="0 1 0"/>
-    <limit effort="10000" velocity="1000"/>
-    <joint_properties damping="1.0" friction="1.0"/>
-  </joint>
-  
-  <joint name="hokuyo_joint" type="fixed">
-    <axis xyz="0 1 0" />
-    <origin xyz="-0.05 -0.15 0" rpy="0 0 0"/>
-    <parent link="link_chassis"/>
-    <child link="hokuyo_link"/>
-  </joint>
-
-  <!-- Hokuyo Laser -->
-  <link name="hokuyo_link">
-    <collision>
-      <origin xyz="0 0 0.025" rpy="0 0 0"/>
-      <geometry>
-    <box size="0.1 0.1 0.1"/>
-      </geometry>
-    </collision>
-
+  <link name="camera_link">
+	    <collision>
+	      <origin xyz="0 0 0.1" rpy="0 0 0"/>
+	      <geometry>
+		<box size="0.05 0.05 0.2"/>
+	      </geometry>
+	    </collision>
 	    <visual>
 	      <origin xyz="0 0 0.025" rpy="0 0 0"/>
 	      <geometry>
@@ -196,13 +143,19 @@
 		<color rgba="1 0 0 1"/>
 	      </material>
 	    </visual>
-
-    <inertial>
-      <mass value="1e-5" />
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
-    </inertial>
+	    <inertial>
+	      <mass value="1e-5" />
+	      <origin xyz="0 0 0" rpy="0 0 0"/>
+	      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+	    </inertial> 
   </link>
+  
+  <joint name="camera_joint" type="fixed">
+	    <axis xyz="0 1 0" />
+	    <origin xyz="0.23 0 0.235" rpy="0 0 0"/>
+	    <parent link="link_chassis"/>
+	    <child link="camera_link"/> 
+	 </joint>
 
 
 
