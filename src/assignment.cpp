@@ -1,5 +1,6 @@
 #include "rclcpp/rclcpp.hpp"
 #include "geometry_msgs/msg/twist.hpp"
+#include "geometry_msgs/msg/pose.hpp"
 #include "nav_msgs/msg/odometry.hpp"
 
 class Motion : public rclcpp::Node{
@@ -7,6 +8,7 @@ public:
     Motion()
     : Node("Motion"){
         pub = this->create_publisher<geometry_msgs::msg::Twist>("/cmd_vel", 10);
+        pub2 = this->create_publisher<geometry_msgs::msg::Pose>("/robotpose", 10);
         sub = this->create_subscription<nav_msgs::msg::Odometry>(
             "/odom", 10, std::bind(&Motion::odomCallback, this, std::placeholders::_1));
     }
@@ -30,9 +32,15 @@ private:
             vel.angular.z = 0.0;
         }
         pub->publish(vel);
+        
+        geometry_msgs::msg::Pose posefeet;
+        posefeet.position.x = pose.x * 3.28;
+        posefeet.position.y = pose.y * 3.28;
+        pub2->publish(posefeet);
     }
 
     rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr pub;
+    rclcpp::Publisher<geometry_msgs::msg::Pose>::SharedPtr pub2;
     rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr sub;
 };
 
